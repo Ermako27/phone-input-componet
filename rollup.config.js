@@ -1,10 +1,11 @@
 import babel from 'rollup-plugin-babel';
 import typescript from 'rollup-plugin-typescript2';
 import html from 'rollup-plugin-bundle-html';
+import css from 'rollup-plugin-css-only';
 
 
 export default {
-    input: 'src/index.ts',
+    input: 'src/main.ts',
     output: {
         file: 'build/js/index.js',
         format: 'es',
@@ -18,6 +19,9 @@ export default {
             dest: 'build/',
             filename: 'index.html',
             inject: 'body',
+        }),
+        css({
+            output: 'build/css/style.css',
         }),
     ],
 };
