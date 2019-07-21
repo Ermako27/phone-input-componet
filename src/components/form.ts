@@ -1,7 +1,7 @@
 import {
-    MaskLegend,
     FormClass,
     PhoneFormState,
+    FormValue,
 } from '../interfaces/IForm';
 
 import {
@@ -10,29 +10,7 @@ import {
 } from '../interfaces/IFormElement';
 import InputElement from '../components/inputElement';
 import SpanElement from '../components/spanElement';
-
-
-const maskLegend: MaskLegend = {
-    'I': {
-        style: 'phone-block__input_normal',
-        value: '',
-        state: 'normal',
-        element: 'input',
-    },
-    'X': {
-        style: 'phone-block__input_disabled',
-        value: 'X',
-        state: 'disabled',
-        element: 'input',
-    },
-    '*': {
-        style: 'phone-block__input_disabled',
-        value: '●',
-        state: 'disabled',
-        element: 'input',
-    },
-};
-const nums = '1234567890';
+import parseMask from '../utils/maskParser';
 
 export default class PhoneForm implements FormClass {
     private mask: string;
@@ -45,35 +23,6 @@ export default class PhoneForm implements FormClass {
         };
     }
 
-    private parseMask(mask: string): FormElementsProps[] {
-        const result: FormElementsProps[] = Array.from(mask).reduce(
-            (acc: FormElementsProps[], elem: string): FormElementsProps[] => {
-                if (elem in maskLegend) {
-                    const props: FormElementsProps = {...maskLegend[elem]};
-                    acc.push(props);
-                    return acc;
-                } else if (nums.includes(elem)) {
-                    const props: FormElementsProps = {
-                        value: elem,
-                        style: 'phone-block__input_disabled',
-                        state: 'disabled',
-                        element: 'input',
-                    };
-                    acc.push(props);
-                    return acc;
-                } else {
-                    const props: FormElementsProps = {
-                        value: elem,
-                        style: 'phone-block__symbol-span',
-                        element: 'span',
-                    };
-                    acc.push(props);
-                    return acc;
-                }
-            }, []);
-        return result;
-    }
-
     public setState({error = false}): void {
         if (error !== this.state.error) {
             const newInputStyle = error ?
@@ -83,18 +32,18 @@ export default class PhoneForm implements FormClass {
                 'phone-block__input_normal' :
                 'phone-block__input_error';
 
-            const elementsToChange: NodeListOf<FormElementType> = document
+            const elementsToChange: NodeListOf<HTMLInputElement> = document
                 .querySelectorAll(
                     `.phone-block__input > .${prevInputStyle}`
                 );
 
-            elementsToChange.forEach((elem: FormElementType): void => {
+            elementsToChange.forEach((elem: HTMLInputElement): void => {
                 elem.className = newInputStyle;
             });
 
-            const errorMsg: FormElementType = document.querySelector(
+            const errorMsg: HTMLInputElement = document.querySelector(
                 '.phone-block__error-message'
-            ) as FormElementType;
+            ) as HTMLInputElement;
             error ?
                 errorMsg.classList.remove('phone-block__error-message_hide') :
                 errorMsg.classList.add('phone-block__error-message_hide');
@@ -103,13 +52,43 @@ export default class PhoneForm implements FormClass {
         }
     }
 
+    public getFormValue(): FormValue {
+        const result: FormValue = {
+            maskNumber: '',
+            rawNumber: '',
+        };
+        let inputPointer = 0;
+        const inputStyle = this.state.error ?
+            'phone-block__input_error' :
+            'phone-block__input_normal';
+
+        const elementsToHarvest: NodeListOf<HTMLInputElement> = document
+            .querySelectorAll(
+                `.phone-block__input > .${inputStyle}`
+            );
+
+        for (const elem of this.mask) {
+            if (elem === 'I') {
+                result.maskNumber +=
+                    elementsToHarvest[inputPointer].value.length ?
+                        elementsToHarvest[inputPointer].value :
+                        'I';
+                result.rawNumber += elementsToHarvest[inputPointer].value;
+                inputPointer += 1;
+            } else {
+                result.maskNumber += elem;
+            }
+        }
+        return result;
+    }
+
     public createForm(): HTMLDivElement {
         const container: HTMLDivElement = document.createElement('div');
         const phoneBlock: HTMLDivElement = document.createElement('div');
         phoneBlock.className = 'phone-block';
 
         const arrayOfFormElementsProps: FormElementsProps[] =
-                                            this.parseMask(this.mask);
+                                            parseMask(this.mask);
         arrayOfFormElementsProps.forEach((props: FormElementsProps): void => {
             if (props.element === 'input') {
                 const input: FormElementType =
