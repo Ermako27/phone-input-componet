@@ -10,8 +10,15 @@ export interface MaskLegend {
 }
 
 /**
+ * Состояние компонента
+ */
+export interface PhoneFormState {
+    error: boolean;
+}
+
+/**
  * Интерфейс для класса формы
  */
 export interface FormClass {
-    createForm(): HTMLFormElement;
+    createForm(): HTMLDivElement;
 };

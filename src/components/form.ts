@@ -1,6 +1,7 @@
 import {
     MaskLegend,
     FormClass,
+    PhoneFormState,
 } from '../interfaces/IForm';
 
 import {
@@ -35,9 +36,13 @@ const nums = '1234567890';
 
 export default class PhoneForm implements FormClass {
     private mask: string;
+    private state: PhoneFormState;
 
     public constructor(mask: string) {
         this.mask = mask;
+        this.state = {
+            error: false,
+        };
     }
 
     private parseMask(mask: string): FormElementsProps[] {
@@ -69,8 +74,29 @@ export default class PhoneForm implements FormClass {
         return result;
     }
 
-    public createForm(): HTMLFormElement {
-        const form: HTMLFormElement = document.createElement('form');
+    public setState({error = false}): void {
+        if (error !== this.state.error) {
+            const newStyle = error ?
+                'phone-block__input_error' :
+                'phone-block__input_normal';
+
+            const prevStyle = error ?
+                'phone-block__input_normal' :
+                'phone-block__input_error';
+
+            const elementsToChange: NodeListOf<FormElementType> = document
+                .querySelectorAll(
+                    `.phone-block__input > .${prevStyle}`
+                );
+
+            elementsToChange.forEach((elem: FormElementType): void => {
+                elem.className = newStyle;
+            });
+            this.state.error = error;
+        }
+    }
+
+    public createForm(): HTMLDivElement {
         const phoneBlock: HTMLDivElement = document.createElement('div');
         phoneBlock.className = 'phone-block';
 
@@ -86,7 +112,6 @@ export default class PhoneForm implements FormClass {
                 phoneBlock.appendChild(span);
             }
         });
-        form.appendChild(phoneBlock);
-        return form;
+        return phoneBlock;
     }
 };
