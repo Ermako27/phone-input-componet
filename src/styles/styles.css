@@ -51,6 +51,17 @@
   box-sizing: border-box;
 }
 
+.phone-block__error-message {
+  font-family: Arial;
+  font-size: 13px;
+  line-height: 20px;
+  color: #FF1100;
+}
+
+.phone-block__error-message_hide {
+  visibility: hidden;
+}
+
 /* SYMBOL */
 
 .phone-block__symbol-span {

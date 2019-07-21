@@ -76,27 +76,35 @@ export default class PhoneForm implements FormClass {
 
     public setState({error = false}): void {
         if (error !== this.state.error) {
-            const newStyle = error ?
+            const newInputStyle = error ?
                 'phone-block__input_error' :
                 'phone-block__input_normal';
-
-            const prevStyle = error ?
+            const prevInputStyle = error ?
                 'phone-block__input_normal' :
                 'phone-block__input_error';
 
             const elementsToChange: NodeListOf<FormElementType> = document
                 .querySelectorAll(
-                    `.phone-block__input > .${prevStyle}`
+                    `.phone-block__input > .${prevInputStyle}`
                 );
 
             elementsToChange.forEach((elem: FormElementType): void => {
-                elem.className = newStyle;
+                elem.className = newInputStyle;
             });
+
+            const errorMsg: FormElementType = document.querySelector(
+                '.phone-block__error-message'
+            ) as FormElementType;
+            error ?
+                errorMsg.classList.remove('phone-block__error-message_hide') :
+                errorMsg.classList.add('phone-block__error-message_hide');
+
             this.state.error = error;
         }
     }
 
     public createForm(): HTMLDivElement {
+        const container: HTMLDivElement = document.createElement('div');
         const phoneBlock: HTMLDivElement = document.createElement('div');
         phoneBlock.className = 'phone-block';
 
@@ -112,6 +120,18 @@ export default class PhoneForm implements FormClass {
                 phoneBlock.appendChild(span);
             }
         });
-        return phoneBlock;
+
+        const errorMsg: HTMLDivElement = document.createElement('div');
+        errorMsg.className = 'phone-block';
+
+        const errorMsgSpan: HTMLSpanElement = document.createElement('span');
+        errorMsgSpan.classList.add('phone-block__error-message');
+        errorMsgSpan.classList.add('phone-block__error-message_hide');
+        errorMsgSpan.innerText = 'Неверный номер, попробуйте еще раз';
+        errorMsg.appendChild(errorMsgSpan);
+
+        container.appendChild(phoneBlock);
+        container.appendChild(errorMsg);
+        return container;
     }
 };
