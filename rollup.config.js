@@ -1,27 +1,64 @@
 import babel from 'rollup-plugin-babel';
 import typescript from 'rollup-plugin-typescript2';
-import html from 'rollup-plugin-bundle-html';
-import css from 'rollup-plugin-css-only';
+import {terser} from 'rollup-plugin-terser';
+import nodeResolve from 'rollup-plugin-node-resolve';
+import pkg from './package.json'
 
-
-export default {
-    input: 'src/main.ts',
-    output: {
-        file: 'build/js/index.js',
-        format: 'es',
-        indent: false,
+export default [
+    {
+        // ES
+        input: 'src/index.ts',
+        output: {
+            file: 'es/phoneInputComponent.js',
+            format: 'es',
+            indent: false,
+        },
+        external: [
+            ...Object.keys(pkg.dependencies || {}),
+            ...Object.keys(pkg.peerDependencies || {}),
+        ],
+        plugins: [
+            babel(),
+            typescript({tsconfig: 'tsconfig.json'}),
+        ],
     },
-    plugins: [
-        babel(),
-        typescript({tsconfig: 'tsconfig.json'}),
-        html({
-            template: 'src/index.html',
-            dest: 'build/',
-            filename: 'index.html',
-            inject: 'body',
-        }),
-        css({
-            output: 'build/css/style.css',
-        }),
-    ],
-};
+    {
+        // CommonJS
+        input: 'src/index.ts',
+        output: {
+            file: 'lib/phoneInputComponent.js',
+            format: 'cjs',
+            indent: false,
+        },
+        external: [
+            ...Object.keys(pkg.dependencies || {}),
+            ...Object.keys(pkg.peerDependencies || {}),
+        ],
+        plugins: [
+            babel(),
+            typescript({tsconfig: 'tsconfig.json'}),
+        ],
+    },
+    {
+        // ES for Browsers
+        input: 'src/index.ts',
+        output: {
+            file: 'es/phoneInputComponent.mjs',
+            format: 'es',
+            indent: false,
+        },
+        plugins: [
+            babel(),
+            typescript({tsconfig: 'tsconfig.json'}),
+            nodeResolve(),
+            terser({
+                compress: {
+                    pure_getters: true,
+                    unsafe: true,
+                    unsafe_comps: true,
+                    warnings: false,
+                }
+            })
+        ]
+    },
+];
