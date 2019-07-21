@@ -2,6 +2,8 @@ import babel from 'rollup-plugin-babel';
 import typescript from 'rollup-plugin-typescript2';
 import {terser} from 'rollup-plugin-terser';
 import nodeResolve from 'rollup-plugin-node-resolve';
+import css from 'rollup-plugin-css-porter';
+
 import pkg from './package.json'
 
 export default [
@@ -20,6 +22,10 @@ export default [
         plugins: [
             babel(),
             typescript({tsconfig: 'tsconfig.json'}),
+            css({
+                raw: './styles/styles.css',
+                minified: './styles/styles.min.css',
+            })
         ],
     },
     {
@@ -37,6 +43,10 @@ export default [
         plugins: [
             babel(),
             typescript({tsconfig: 'tsconfig.json'}),
+            css({
+                raw: './styles/styles.css',
+                minified: './styles/styles.min.css',
+            })
         ],
     },
     {
@@ -58,6 +68,10 @@ export default [
                     unsafe_comps: true,
                     warnings: false,
                 }
+            }),
+            css({
+                raw: './styles/styles.css',
+                minified: './styles/styles.min.css',
             })
         ]
     },
