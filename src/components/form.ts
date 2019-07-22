@@ -1,6 +1,6 @@
 import {
     FormClass,
-    PhoneFormState,
+    PhoneComponentState,
     FormValue,
 } from '../interfaces/IForm';
 
@@ -12,11 +12,14 @@ import InputElement from '../components/inputElement';
 import SpanElement from '../components/spanElement';
 import parseMask from '../utils/maskParser';
 
-export default class PhoneForm implements FormClass {
+export default class PhoneComponent implements FormClass {
     private mask: string;
-    private state: PhoneFormState;
+    private state: PhoneComponentState;
 
-    public constructor(mask: string, state: PhoneFormState = {error: false}) {
+    public constructor(
+        mask: string,
+        state: PhoneComponentState = {error: false}
+    ) {
         this.mask = mask;
         this.state = state;
     }

@@ -1,12 +1,11 @@
-import PhoneForm from '../es/phoneInputComponent';
+import PhoneComponent from '../es/phoneInputComponent';
 import './styles/styles.css';
 
 
 let toggler = true;
 const mask = '+7(985)0II-**-**';
 
-const phoneForm = new PhoneForm(mask);
-phoneForm.setState({error: true});
+const phoneForm = new PhoneComponent(mask);
 const form = document.createElement('form');
 
 const submitButtonDiv = document.createElement('div');

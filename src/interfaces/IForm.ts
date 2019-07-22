@@ -12,7 +12,7 @@ export interface MaskLegend {
 /**
  * Состояние компонента
  */
-export interface PhoneFormState {
+export interface PhoneComponentState {
     error: boolean;
 }
 

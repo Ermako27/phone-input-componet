@@ -1,4 +1,4 @@
-import PhoneForm from '../src/components/form';
+import PhoneComponent from '../src/components/form';
 import {FormValue} from '../src/interfaces/IForm';
 /**
  * @param {string} style css класс
@@ -14,7 +14,7 @@ function testTemplate(
     inputValue: string,
     expected: FormValue,
 ): void {
-    const phoneForm = new PhoneForm(mask);
+    const phoneForm = new PhoneComponent(mask);
     phoneForm.setState({error});
     document.body.appendChild(phoneForm.createForm());
 
@@ -45,7 +45,7 @@ function notFullInputTemplate(
     inputValue: string,
     expected: FormValue,
 ): void {
-    const phoneForm = new PhoneForm(mask);
+    const phoneForm = new PhoneComponent(mask);
     phoneForm.setState({error});
     document.body.appendChild(phoneForm.createForm());
 
