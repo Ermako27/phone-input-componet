@@ -1,6 +1,6 @@
 {
   "name": "phone-input-componet",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "repository": {
     "type": "git",
@@ -26,7 +26,8 @@
     "lint": "eslint src --ext .ts",
     "lint-fix": "eslint src --fix --ext .ts",
     "build": "rollup -c",
-    "prepare": "npm run clean && npm run lint && npm test && npm run build"
+    "prepare": "npm run clean && npm run lint && npm test && npm run build",
+    "storybook": "start-storybook -p 6006"
   },
   "husky": {
     "hooks": {
@@ -49,9 +50,18 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.3.3",
+    "@babel/types": "^7.5.5",
+    "@storybook/addon-actions": "^5.1.9",
+    "@storybook/addon-links": "^5.1.9",
+    "@storybook/addons": "^5.1.9",
+    "@storybook/cli": "^5.1.9",
+    "@storybook/html": "^5.1.9",
     "@types/jest": "^24.0.15",
+    "@types/storybook__html": "^5.0.2",
     "@typescript-eslint/eslint-plugin": "^1.12.0",
     "@typescript-eslint/parser": "^1.12.0",
+    "awesome-typescript-loader": "^5.2.1",
+    "babel-loader": "^8.0.6",
     "eslint": "^5.3.0",
     "eslint-config-google": "^0.13.0",
     "eslint-config-standard": "^13.0.1",
