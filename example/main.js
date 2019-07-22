@@ -3,9 +3,10 @@ import './styles/styles.css';
 
 
 let toggler = true;
-const mask = '+7(985)*II-**-II';
+const mask = '+7(985)0II-**-**';
 
 const phoneForm = new PhoneForm(mask);
+console.log(phoneForm.createForm());
 const form = document.createElement('form');
 
 const submitButtonDiv = document.createElement('div');

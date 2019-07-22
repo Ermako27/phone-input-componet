@@ -24,11 +24,34 @@ const maskLegend: MaskLegend = {
 
 /**
  * @param {string} mask шаблон для компонента
+ * @return {string} маска с удаленными пробелами
+ */
+function removeSpaces(mask: string): string {
+    return Array.from(mask).reduce((acc: string, elem: string): string => {
+        acc += elem !== ' ' ? elem : '';
+        return acc;
+    }, '');
+}
+
+/**
+ * @param {string} mask шаблон для компонента
+ * @return {boolean} является ли маска пустой
+ */
+function isEmpty(mask: string): boolean {
+    return mask === '';
+}
+
+/**
+ * @param {string} mask шаблон для компонента
  * @return {FormElementsProps[]} массив из пропсов для каждого из элементов
  * компонента ввода телефона
  */
 export default function parseMask(mask: string): FormElementsProps[] {
-    const result: FormElementsProps[] = Array.from(mask).reduce(
+    const maskWithoutSpaces = removeSpaces(mask);
+    if (isEmpty(maskWithoutSpaces)) {
+        throw new Error('Your mask is empty');
+    }
+    const result: FormElementsProps[] = Array.from(maskWithoutSpaces).reduce(
         (acc: FormElementsProps[], elem: string): FormElementsProps[] => {
             if (elem in maskLegend) {
                 const props: FormElementsProps = {...maskLegend[elem]};

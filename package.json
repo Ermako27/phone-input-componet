@@ -21,7 +21,7 @@
     "styles"
   ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "clean": "rimraf lib es styles coverage",
     "lint": "eslint src --ext .ts",
     "lint-fix": "eslint src --fix --ext .ts",
@@ -48,6 +48,7 @@
     "@babel/plugin-proposal-object-rest-spread": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-typescript": "^7.3.3",
+    "@types/jest": "^24.0.15",
     "@typescript-eslint/eslint-plugin": "^1.12.0",
     "@typescript-eslint/parser": "^1.12.0",
     "eslint": "^5.3.0",
@@ -58,6 +59,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.0",
     "husky": "^3.0.0",
+    "jest": "^24.8.0",
     "lint-staged": "^9.2.0",
     "rimraf": "^2.6.3",
     "rollup": "^1.17.0",
@@ -67,6 +69,9 @@
     "rollup-plugin-terser": "^5.1.1",
     "rollup-plugin-typescript2": "^0.22.0",
     "typescript": "^3.5.3"
+  },
+  "jest": {
+    "testRegex": "(/test/.*\\.spec\\.ts)$"
   },
   "npmName": "phone-input-componet",
   "sideEffects": false
