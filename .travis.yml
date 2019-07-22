@@ -3,8 +3,7 @@ node_js:
 - 11.4.0
 deploy:
   provider: npm
-  email: ermakov.1828@gmail.com
-  api_key:
-    secure: tdL/m5uy6A71TrLNaH6EzX6UWZJC4DnY+BLLJjhGux3w1iV+nv1K/P14siwGe9KBmOc9dmlUSgK02F53NHtiIv5upx9GPfBnpZSzyIkJSxQ/nrji/1RfE28752UeYpD7g8y7qp620+lGL0dNCzq9CQlS9Qum9qoM/Z1Y75hvtPecWtaPPTsx2avkZAvHteD5km+PqrWSQfgt9uIRm1A38cIZLq9zVQvC4RcfFmRqRMNplz7AnnlxDZRvTPwtVEj9twXncrd61l3WroASLcPP2qYLPJ5h1P2mphWcB1fBEC28bbBKwAzQPQQqFucdxYOniKSHFAhsGqWzQJwGZC32FAO5A1TY4fybycF/Qtdn/eGNE3VRWhFuIw36yHWJeT/aU7MqxWkzcmlgV/dVZ3Ur3zUPLY/TszIKvBtfqB5RB9Zz4MKTixzbpjewwQPYjiPmW6VjbqNJT7J9EUqIV1grBwKCZ4bmmgY9P1TVgvlHpIEal+lJvkw9P5E8OHWqE4bSRMExjoCTBZE+rkh59b6ozDMo4ZHWJRSfTjvGDAtZ6n3jUV+a/XlVB/XmOlJpiiso87P5RDAZ2kg2jDtZyvBh6XOGcsdJaJyCG8z8XGN8uQ9q/eJoHE0AcMrUUzzUvrM8tNWwu5AqKuRSbZ6aV/6eMVpEn8wryob+wISnDRCX68I=
+  email: 'ermakov.1828@gmail.com'
+  api_key: $NPM_TOKEN
   on:
     branch: master
