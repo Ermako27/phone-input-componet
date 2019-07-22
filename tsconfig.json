@@ -4,6 +4,7 @@
         "sourceMap": true,
         "removeComments": true,
         "target": "es6",
+        "moduleResolution": "node",
         "outDir": "./build"
     },
     "include": [
