@@ -4,6 +4,8 @@
 
 [Live Демо компонента](https://ermako27.github.io/phone-input-componet/)
 
+[Публикация в npm](https://www.npmjs.com/package/phone-input-componet)
+
 ## Установка
 
 npm install --save-dev phone-input-componet
