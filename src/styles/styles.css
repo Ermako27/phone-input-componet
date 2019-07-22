@@ -8,6 +8,8 @@
 }
 
 .phone-block__input{
+  -webkit-appearance: none;
+  -webkit-text-fill-color: #333333;
   margin-left: 2px;
   margin-right: 2px;
   padding: 0px;
