@@ -43,14 +43,29 @@ function isEmpty(mask: string): boolean {
 
 /**
  * @param {string} mask шаблон для компонента
+ * @param {boolean} error если пользователь захочет нарисовать компонент сразу
+ * в состоянии ошибки
  * @return {FormElementsProps[]} массив из пропсов для каждого из элементов
  * компонента ввода телефона
  */
-export default function parseMask(mask: string): FormElementsProps[] {
+export default function parseMask(
+    mask: string,
+    error: boolean = false,
+): FormElementsProps[] {
     const maskWithoutSpaces = removeSpaces(mask);
     if (isEmpty(maskWithoutSpaces)) {
         throw new Error('Your mask is empty');
     }
+
+    /**
+    * если пользователь захочет нарисовать компонент сразу
+    * в состоянии ошибки то меняем пропсы для активных инпутов
+    */
+    maskLegend['I'].style = error ?
+        'phone-block__input_error' :
+        'phone-block__input_normal';
+    maskLegend['I'].state = error ? 'error' : 'normal';
+
     const result: FormElementsProps[] = Array.from(maskWithoutSpaces).reduce(
         (acc: FormElementsProps[], elem: string): FormElementsProps[] => {
             if (elem in maskLegend) {

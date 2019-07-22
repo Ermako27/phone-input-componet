@@ -1,30 +1,14 @@
 import PhoneForm from '../src/components/form';
-import fs from 'fs';
-
-describe('phone form creation', (): void => {
-    it('snapshot test for creation phone form', (): void => {
-        let spanShot;
-        const phoneForm = new PhoneForm('+7(985)0II-**-**');
-        const phoneFormHtmlElement = phoneForm.createForm();
-        try {
-            spanShot = fs.readFileSync(
-                `${__dirname}/__snapshots__/createForm.test.snapshot`
-            ).toString();
-        } catch {
-            spanShot = phoneFormHtmlElement.outerHTML;
-            try {
-                fs.mkdirSync(`${__dirname}/__snapshots__`);
-                fs.writeFileSync(
-                    `${__dirname}/__snapshots__/createForm.test.snapshot`,
-                    spanShot
-                );
-            } catch {
-                fs.writeFileSync(
-                    `${__dirname}/__snapshots__/createForm.test.snapshot`,
-                    spanShot
-                );
-            }
-        }
-        expect(phoneFormHtmlElement.outerHTML).toEqual(spanShot);
+import checkSnapShot from './utils/checkSnapShot';
+describe('component creation', (): void => {
+    it('snapshot test for creation component in normal state', (): void => {
+        const component = new PhoneForm('+7(985)0II-**-**');
+        const componentHtmlElement = component.createForm();
+        checkSnapShot(componentHtmlElement.outerHTML, 'createForm_normal');
+    });
+    it('snapshot test for creation component in error state', (): void => {
+        const component = new PhoneForm('+7(985)0II-**-**', {error: true});
+        const componentHtmlElement = component.createForm();
+        checkSnapShot(componentHtmlElement.outerHTML, 'createForm_error');
     });
 });

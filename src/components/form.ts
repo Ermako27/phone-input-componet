@@ -16,11 +16,9 @@ export default class PhoneForm implements FormClass {
     private mask: string;
     private state: PhoneFormState;
 
-    public constructor(mask: string) {
+    public constructor(mask: string, state: PhoneFormState = {error: false}) {
         this.mask = mask;
-        this.state = {
-            error: false,
-        };
+        this.state = state;
     }
 
     public setState({error = false}): void {
@@ -88,7 +86,7 @@ export default class PhoneForm implements FormClass {
         phoneBlock.className = 'phone-block';
 
         const arrayOfFormElementsProps: FormElementsProps[] =
-                                            parseMask(this.mask);
+                                        parseMask(this.mask, this.state.error);
         arrayOfFormElementsProps.forEach((props: FormElementsProps): void => {
             if (props.element === 'input') {
                 const input: FormElementType =
@@ -105,7 +103,9 @@ export default class PhoneForm implements FormClass {
 
         const errorMsgSpan: HTMLSpanElement = document.createElement('span');
         errorMsgSpan.classList.add('phone-block__error-message');
-        errorMsgSpan.classList.add('phone-block__error-message_hide');
+        if (!this.state.error) {
+            errorMsgSpan.classList.add('phone-block__error-message_hide');
+        }
         errorMsgSpan.innerText = 'Неверный номер, попробуйте еще раз';
         errorMsg.appendChild(errorMsgSpan);
 
