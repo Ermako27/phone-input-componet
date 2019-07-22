@@ -1,10 +1,10 @@
 import {
-    FormElementsProps,
-    FormElementClass,
-} from '../interfaces/IFormElement';
+    PhoneComponentElementsProps,
+    ComponentElementClass,
+} from '../interfaces/IComponentElement';
 
-class InputElement implements FormElementClass {
-    public createElement(props: FormElementsProps): HTMLDivElement {
+class InputElement implements ComponentElementClass {
+    public createElement(props: PhoneComponentElementsProps): HTMLDivElement {
         const div: HTMLDivElement = document.createElement('div');
         div.className = 'phone-block__input';
 

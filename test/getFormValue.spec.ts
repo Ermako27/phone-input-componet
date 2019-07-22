@@ -1,22 +1,22 @@
-import PhoneComponent from '../src/components/form';
-import {FormValue} from '../src/interfaces/IForm';
+import PhoneComponent from '../src/components/component';
+import {ComponentValue} from '../src/interfaces/IComponent';
 /**
  * @param {string} style css класс
  * @param {boolean} error state
  * @param {string} mask
  * @param {string} inputValue
- * @param {FormValue} expected
+ * @param {ComponentValue} expected
  */
 function testTemplate(
     style: string,
     error: boolean,
     mask: string,
     inputValue: string,
-    expected: FormValue,
+    expected: ComponentValue,
 ): void {
-    const phoneForm = new PhoneComponent(mask);
-    phoneForm.setState({error});
-    document.body.appendChild(phoneForm.createForm());
+    const phoneComponent = new PhoneComponent(mask);
+    phoneComponent.setState({error});
+    document.body.appendChild(phoneComponent.createComponent());
 
     const elementsToHarvest: NodeListOf<HTMLInputElement> = document
         .querySelectorAll(
@@ -27,7 +27,7 @@ function testTemplate(
         elem.value = inputValue;
     });
 
-    const result: FormValue = phoneForm.getFormValue();
+    const result: ComponentValue = phoneComponent.getComponentValue();
     expect(result).toEqual(expected);
 }
 
@@ -36,18 +36,18 @@ function testTemplate(
  * @param {boolean} error state
  * @param {string} mask
  * @param {string} inputValue
- * @param {FormValue} expected
+ * @param {ComponentValue} expected
  */
 function notFullInputTemplate(
     style: string,
     error: boolean,
     mask: string,
     inputValue: string,
-    expected: FormValue,
+    expected: ComponentValue,
 ): void {
-    const phoneForm = new PhoneComponent(mask);
-    phoneForm.setState({error});
-    document.body.appendChild(phoneForm.createForm());
+    const phoneComponent = new PhoneComponent(mask);
+    phoneComponent.setState({error});
+    document.body.appendChild(phoneComponent.createComponent());
 
     const inputElement: HTMLInputElement = document
         .querySelector(
@@ -56,7 +56,7 @@ function notFullInputTemplate(
 
     inputElement.value = inputValue;
 
-    const result: FormValue = phoneForm.getFormValue();
+    const result: ComponentValue = phoneComponent.getComponentValue();
     expect(result).toEqual(expected);
 }
 

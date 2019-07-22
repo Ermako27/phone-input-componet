@@ -1,5 +1,5 @@
-import {FormElementsProps} from '../interfaces/IFormElement';
-import {MaskLegend} from '../interfaces/IForm';
+import {PhoneComponentElementsProps} from '../interfaces/IComponentElement';
+import {MaskLegend} from '../interfaces/IComponent';
 
 const maskLegend: MaskLegend = {
     'I': {
@@ -45,13 +45,13 @@ function isEmpty(mask: string): boolean {
  * @param {string} mask шаблон для компонента
  * @param {boolean} error если пользователь захочет нарисовать компонент сразу
  * в состоянии ошибки
- * @return {FormElementsProps[]} массив из пропсов для каждого из элементов
- * компонента ввода телефона
+ * @return {PhoneComponentElementsProps[]} массив из пропсов для каждого
+ * из элементов компонента ввода телефона
  */
 export default function parseMask(
     mask: string,
     error: boolean = false,
-): FormElementsProps[] {
+): PhoneComponentElementsProps[] {
     const maskWithoutSpaces = removeSpaces(mask);
     if (isEmpty(maskWithoutSpaces)) {
         throw new Error('Your mask is empty');
@@ -66,30 +66,33 @@ export default function parseMask(
         'phone-block__input_normal';
     maskLegend['I'].state = error ? 'error' : 'normal';
 
-    const result: FormElementsProps[] = Array.from(maskWithoutSpaces).reduce(
-        (acc: FormElementsProps[], elem: string): FormElementsProps[] => {
-            if (elem in maskLegend) {
-                const props: FormElementsProps = {...maskLegend[elem]};
-                acc.push(props);
-                return acc;
-            } else if (/[0-9]/.test(elem)) {
-                const props: FormElementsProps = {
-                    value: elem,
-                    style: 'phone-block__input_disabled',
-                    state: 'disabled',
-                    element: 'input',
-                };
-                acc.push(props);
-                return acc;
-            } else {
-                const props: FormElementsProps = {
-                    value: elem,
-                    style: 'phone-block__symbol-span',
-                    element: 'span',
-                };
-                acc.push(props);
-                return acc;
-            }
-        }, []);
+    const result: PhoneComponentElementsProps[] =
+        Array.from(maskWithoutSpaces).reduce(
+            (acc: PhoneComponentElementsProps[], elem: string):
+            PhoneComponentElementsProps[] => {
+                if (elem in maskLegend) {
+                    const props: PhoneComponentElementsProps =
+                        {...maskLegend[elem]};
+                    acc.push(props);
+                    return acc;
+                } else if (/[0-9]/.test(elem)) {
+                    const props: PhoneComponentElementsProps = {
+                        value: elem,
+                        style: 'phone-block__input_disabled',
+                        state: 'disabled',
+                        element: 'input',
+                    };
+                    acc.push(props);
+                    return acc;
+                } else {
+                    const props: PhoneComponentElementsProps = {
+                        value: elem,
+                        style: 'phone-block__symbol-span',
+                        element: 'span',
+                    };
+                    acc.push(props);
+                    return acc;
+                }
+            }, []);
     return result;
 };

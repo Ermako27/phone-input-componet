@@ -1,7 +1,6 @@
 import PhoneComponent from 'phone-input-componet';
 import 'phone-input-componet/styles/styles.min.css';
 
-
 let toggler = true;
 const mask = '+7(985)0II-**-**';
 
@@ -14,16 +13,15 @@ submitButton.type = 'submit';
 submitButton.innerText = 'Отправить';
 submitButtonDiv.appendChild(submitButton);
 
-form.appendChild(phoneComponent.createForm());
+form.appendChild(phoneComponent.createComponent());
 form.appendChild(submitButtonDiv);
 
 form.onsubmit = event => {
     event.preventDefault();
     phoneComponent.setState({error: toggler});
-    console.log(phoneComponent.getFormValue());
+    console.log(phoneComponent.getComponentValue());
     toggler = !toggler;
 };
-
 
 const root = document.getElementById('root');
 root.appendChild(form);

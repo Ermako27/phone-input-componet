@@ -1,10 +1,10 @@
 import {
-    FormElementsProps,
-    FormElementClass,
-} from '../interfaces/IFormElement';
+    PhoneComponentElementsProps,
+    ComponentElementClass,
+} from '../interfaces/IComponentElement';
 
-class SpanElement implements FormElementClass {
-    public createElement(props: FormElementsProps): HTMLSpanElement {
+class SpanElement implements ComponentElementClass {
+    public createElement(props: PhoneComponentElementsProps): HTMLSpanElement {
         const span: HTMLSpanElement = document.createElement('span');
         span.className = props.style;
         span.innerText = props.value;

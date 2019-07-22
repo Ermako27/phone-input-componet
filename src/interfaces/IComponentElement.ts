@@ -1,4 +1,4 @@
-export interface FormElementsProps {
+export interface PhoneComponentElementsProps {
     value: string; // значение
     style: string; // css класс
     element: string; // span или input
@@ -8,8 +8,8 @@ export interface FormElementsProps {
 /**
  * Интерфейс для класса инпута
  */
-export interface FormElementClass {
-    createElement (props: FormElementsProps): FormElementType;
+export interface ComponentElementClass {
+    createElement (props: PhoneComponentElementsProps): ComponentElementType;
 };
 
-export type FormElementType = HTMLDivElement | HTMLSpanElement;
+export type ComponentElementType = HTMLDivElement | HTMLSpanElement;

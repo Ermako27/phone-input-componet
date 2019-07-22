@@ -1,12 +1,12 @@
 import {
-    FormElementsProps,
-} from './IFormElement';
+    PhoneComponentElementsProps,
+} from './IComponentElement';
 
 export interface MaskLegend {
-    I: FormElementsProps;
-    X: FormElementsProps;
-    '*': FormElementsProps;
-    [propName: string]: FormElementsProps;
+    I: PhoneComponentElementsProps;
+    X: PhoneComponentElementsProps;
+    '*': PhoneComponentElementsProps;
+    [propName: string]: PhoneComponentElementsProps;
 }
 
 /**
@@ -16,7 +16,7 @@ export interface PhoneComponentState {
     error: boolean;
 }
 
-export interface FormValue {
+export interface ComponentValue {
     maskNumber: string; // В маске I заменяются на введенные числа
     rawNumber: string; // Строка введеных символов без пробелов '5535'
 }
@@ -24,8 +24,8 @@ export interface FormValue {
 /**
  * Интерфейс для класса формы
  */
-export interface FormClass {
-    createForm(): HTMLDivElement;
+export interface PhoneComponentClass {
+    createComponent(): HTMLDivElement;
     setState({error}: {error?: boolean}): void;
-    getFormValue(): FormValue;
+    getComponentValue(): ComponentValue;
 };

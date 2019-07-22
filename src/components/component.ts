@@ -1,18 +1,18 @@
 import {
-    FormClass,
+    PhoneComponentClass,
     PhoneComponentState,
-    FormValue,
-} from '../interfaces/IForm';
+    ComponentValue,
+} from '../interfaces/IComponent';
 
 import {
-    FormElementsProps,
-    FormElementType,
-} from '../interfaces/IFormElement';
+    PhoneComponentElementsProps,
+    ComponentElementType,
+} from '../interfaces/IComponentElement';
 import InputElement from '../components/inputElement';
 import SpanElement from '../components/spanElement';
 import parseMask from '../utils/maskParser';
 
-export default class PhoneComponent implements FormClass {
+export default class PhoneComponent implements PhoneComponentClass {
     private mask: string;
     private state: PhoneComponentState;
 
@@ -53,8 +53,8 @@ export default class PhoneComponent implements FormClass {
         }
     }
 
-    public getFormValue(): FormValue {
-        const result: FormValue = {
+    public getComponentValue(): ComponentValue {
+        const result: ComponentValue = {
             maskNumber: '',
             rawNumber: '',
         };
@@ -83,23 +83,25 @@ export default class PhoneComponent implements FormClass {
         return result;
     }
 
-    public createForm(): HTMLDivElement {
+    public createComponent(): HTMLDivElement {
         const container: HTMLDivElement = document.createElement('div');
         const phoneBlock: HTMLDivElement = document.createElement('div');
         phoneBlock.className = 'phone-block';
 
-        const arrayOfFormElementsProps: FormElementsProps[] =
+        const arrayOfElementsProps: PhoneComponentElementsProps[] =
                                         parseMask(this.mask, this.state.error);
-        arrayOfFormElementsProps.forEach((props: FormElementsProps): void => {
-            if (props.element === 'input') {
-                const input: FormElementType =
-                    InputElement.createElement(props);
-                phoneBlock.appendChild(input);
-            } else {
-                const span: FormElementType = SpanElement.createElement(props);
-                phoneBlock.appendChild(span);
-            }
-        });
+        arrayOfElementsProps.forEach(
+            (props: PhoneComponentElementsProps): void => {
+                if (props.element === 'input') {
+                    const input: ComponentElementType =
+                        InputElement.createElement(props);
+                    phoneBlock.appendChild(input);
+                } else {
+                    const span: ComponentElementType =
+                        SpanElement.createElement(props);
+                    phoneBlock.appendChild(span);
+                }
+            });
 
         const errorMsg: HTMLDivElement = document.createElement('div');
         errorMsg.className = 'phone-block';

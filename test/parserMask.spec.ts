@@ -1,9 +1,9 @@
 import parseMask from '../src/utils/maskParser';
-import {FormElementsProps} from '../src/interfaces/IFormElement';
+import {PhoneComponentElementsProps} from '../src/interfaces/IComponentElement';
 
 describe('parsing mask', (): void => {
     it('checking all types of symbols', (): void => {
-        const result: FormElementsProps[] = parseMask('IX*7+a');
+        const result: PhoneComponentElementsProps[] = parseMask('IX*7+a');
         expect(result).toEqual([
             {
                 style: 'phone-block__input_normal',
@@ -43,12 +43,12 @@ describe('parsing mask', (): void => {
     });
 
     it('empty mask', (): void => {
-        expect((): FormElementsProps[] => parseMask(''))
+        expect((): PhoneComponentElementsProps[] => parseMask(''))
             .toThrowError(/Your mask is empty/);
     });
 
     it('mask with spaces', (): void => {
-        const result: FormElementsProps[] = parseMask('1 X +');
+        const result: PhoneComponentElementsProps[] = parseMask('1 X +');
         expect(result).toEqual([
             {
                 value: '1',
@@ -71,7 +71,7 @@ describe('parsing mask', (): void => {
     });
 
     it('mask consisting only of spaces', (): void => {
-        expect((): FormElementsProps[] => parseMask('   '))
+        expect((): PhoneComponentElementsProps[] => parseMask('   '))
             .toThrow(/Your mask is empty/);
     });
 /**
@@ -80,7 +80,7 @@ describe('parsing mask', (): void => {
  * но из js это потенциальная ошибка
  */
     // it('not string', (): void => {
-    //     const resultNum: FormElementsProps[] = parseMask(1);
-    //     cosnt resultArray: FormElementsProps[] = parseMask([1, 2]);
+    //     const resultNum: PhoneComponentElementsProps[] = parseMask(1);
+    //     cosnt resultArray: PhoneComponentElementsProps[] = parseMask([1, 2]);
     // });
 });
