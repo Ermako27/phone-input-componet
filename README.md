@@ -2,6 +2,8 @@
 
 Компонент для ввода номера телефона.
 
+[Live Демо компонента](https://ermako27.github.io/phone-input-componet/)
+
 ## Установка
 
 npm install --save-dev phone-input-componet
